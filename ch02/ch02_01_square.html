@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="webgl-canvas" width="800" height="600">
+      Your browser does not support the HTML5 canvas element.
+    </canvas>
+  </body>
+  <script src="../common/js/utils.js"></script>
+  <script type="text/javascript">
+    'use strict';
+    /** @type {WebGLRenderingContext} */
+    let gl;
+
+    /** @type {HTMLCanvasElement} */
+    let canvas;
+
+    function initBuffers() {
+      const vertices = [-0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0];
+
+      // Indices defined in counter-clockwise order
+      indices = [0, 1, 2, 0, 2, 3];
+
+      // VBOs
+      const squareVertexBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array(vertices),
+        gl.STATIC_DRAW,
+      );
+
+      // IBOs
+      const squareIndexBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+      gl.bufferData(
+        gl.ELEMENT_ARRAY_BUFFER,
+        new Uint16Array(squareIndexBuffer),
+        gl.STATIC_DRAW,
+      );
+
+      // Clear
+      gl.bindBuffer(gl.ARRAY_BUFFER, null);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+    }
+
+    function init() {
+      // Call WebGL Context
+      canvas = utils.getCanvas('webgl-canvas');
+      gl = utils.getGLContext(canvas);
+    }
+
+    init();
+  </script>
+</html>

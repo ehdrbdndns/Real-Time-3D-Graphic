@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <title>Real-Time 3D Graphics with WebGL2</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="/sample/Real-Time-3D-Graphics-with-WebGL-2/common/images/favicon.png"
+    />
+    <style type="text/css">
+      canvas {
+        border: 5px dotted blue;
+      }
+    </style>
+    <script type="text/javascript">
+      'use strict';
+      let gl;
+
+      const updateClearColor = (...color) => {
+        gl.clearColor(...color);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.viewport(0, 0, 0);
+      };
+
+      const checkKey = event => {
+        console.log(event.keyCode);
+        switch (event.keyCode) {
+          //number = 1
+          case 49: {
+            updateClearColor(0.2, 0.8, 0.2, 1.0);
+            break;
+          }
+          //number = 2
+          case 50: {
+            updateClearColor(0.2, 0.2, 0.8, 1.0);
+            break;
+          }
+          //number = 3
+          case 51: {
+            updateClearColor(Math.random(), Math.random(), Math.random(), 1.0);
+            break;
+          }
+          //number = 4
+          case 52: {
+            const color = gl.getParameter(gl.COLOR_CLEAR_VALUE);
+            alert(`clearColor = (
+                  ${color[0].toFixed(1)},
+                  ${color[1].toFixed(1)},
+                  ${color[2].toFixed(1)}
+                  )`);
+            window.focus();
+            break;
+          }
+        }
+      };
+      const init = () => {
+        const canvas = document.getElementById('webgl-canvas');
+
+        if (!canvas) {
+          console.log('Sorry No HTML 5 canvas was found on this page');
+          return;
+        }
+
+        gl = canvas.getContext('webgl2');
+        const message = gl ? 'Success to make webgl' : 'Faile to make webgl';
+
+        window.onkeydown = checkKey;
+
+        alert(message);
+      };
+
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <canvas id="webgl-canvas" width="800" height="600">
+      Your browser does not support the HTML5 canvas element.
+    </canvas>
+  </body>
+</html>
