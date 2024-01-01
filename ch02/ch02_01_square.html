@@ -24,7 +24,7 @@
       const vertices = [-0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0];
 
       // Indices defined in counter-clockwise order
-      indices = [0, 1, 2, 0, 2, 3];
+      const indices = [0, 1, 2, 0, 2, 3];
 
       // VBOs
       const squareVertexBuffer = gl.createBuffer();
@@ -32,7 +32,7 @@
       gl.bufferData(
         gl.ARRAY_BUFFER,
         new Float32Array(vertices),
-        gl.STATIC_DRAW,
+        gl.STATIC_DRAW
       );
 
       // IBOs
@@ -41,9 +41,11 @@
       gl.bufferData(
         gl.ELEMENT_ARRAY_BUFFER,
         new Uint16Array(indices),
-        gl.STATIC_DRAW,
+        gl.STATIC_DRAW
       );
 
+      console.log(squareVertexBuffer);
+      console.log(squareIndexBuffer);
       // Clear
       gl.bindBuffer(gl.ARRAY_BUFFER, null);
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
@@ -53,6 +55,8 @@
       // Call WebGL Context
       canvas = utils.getCanvas('webgl-canvas');
       gl = utils.getGLContext(canvas);
+
+      initBuffers();
     }
 
     init();
